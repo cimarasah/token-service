@@ -1,0 +1,31 @@
+server:
+  port: 8083
+spring:
+  application:
+      name: token-service
+  jackson:
+    default-property-inclusion: NON_NULL
+    serialization:
+      write_dates_as_timestamps: false
+
+redis:
+  database: 1
+  hostname: localhost
+  port: 8084
+  ssl: false
+  timeout: 1
+  timeunit: DAYS
+
+eureka:
+  instance:
+    hostname: localhost
+    metadataMap:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 5
+    lease-expiration-duration-in-seconds: 5
+  client:
+    fetchRegistry: true
+    registryFetchIntervalSeconds: 5
+    serviceUrl:
+      defaultZone: http://localhost:7801/eureka/
